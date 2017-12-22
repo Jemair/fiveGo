@@ -1,0 +1,29 @@
+.board {
+  .row {
+    display: flex;
+    flex-direction: row;
+    .cell {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 31px;
+      height: 31px;
+      background: linear-gradient(0deg, transparent 15px, #ccc 15px, #ccc 16px, transparent 16px), linear-gradient(90deg, transparent 15px, #ccc 15px, #ccc 16px, transparent 16px);
+      .chessman {
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        line-height: 20px;
+        border: 1px #000000 solid;
+        border-radius: 50%;
+        color: #ff0000;
+        &.black {
+          background: #000000;
+        }
+        &.white {
+          background: #ffffff;
+        }
+      }
+    }
+  }
+}

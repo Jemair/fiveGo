@@ -36,10 +36,10 @@ export default class App extends Component {
   play = pos => {
     const { data, currentRound, currentPlayer, hasWinner } = this.state
     const currentData = List(data.get(currentRound))
+    if (currentData.get(pos[0]).get(pos[1]) !== null) { return }
+    if (hasWinner) { return }
+
     const newData = currentData.set(pos[0], currentData.get(pos[0]).set(pos[1], currentPlayer))
-    if (hasWinner) {
-      return
-    }
     this.setState(prevState => {
       const { currentRound, data, lastPos } = prevState
       return ({
@@ -79,6 +79,7 @@ export default class App extends Component {
   }
 
   isWin = (pos, currentData, currentPlayer) => {
+    if (pos === null) { return }
     const testArray = [[[0, 1], [0, -1]], [[1, 0], [-1, 0]], [[1, 1], [-1, -1]], [[1, -1], [-1, 1]]]
     return testArray.some(i => {
       const max = i.reduce((m, n) => {
@@ -95,7 +96,7 @@ export default class App extends Component {
           }
           count++
         }
-        return count
+        return m + count
       }, 0)
       return max >= 4
     })
@@ -115,7 +116,7 @@ export default class App extends Component {
         {
           version === 0
             ? <Board data={data.get(currentRound)} play={this.play} lastPos={lastPos.get(currentRound - maxRound - 1)} />
-            : <Canvas />
+            : <Canvas pos={lastPos} currentRound={currentRound} play={this.play} />
         }
         <p>Current player: {currentPlayer ? 'White' : 'Black'}</p>
         <p>Current round: {currentRound}</p>

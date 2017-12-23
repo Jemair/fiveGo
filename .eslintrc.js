@@ -15,10 +15,10 @@ module.exports = {
     browser: true,
   },
   extends: [
-      // https://github.com/feross/standard/blob/master/RULES.md#javascript-standard-style
-      'standard',
-      // https://github.com/feross/eslint-config-standard-react
-      'standard-react'
+    // https://github.com/feross/standard/blob/master/RULES.md#javascript-standard-style
+    'standard',
+    // https://github.com/feross/eslint-config-standard-react
+    'standard-react'
   ],
   // https://github.com/yannickcr/eslint-plugin-react
   plugins: [
@@ -35,6 +35,7 @@ module.exports = {
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
 
-    'react/prop-types'  : 0,
+    'react/prop-types': 0,
+    'no-multi-spaces': 0
   }
 }

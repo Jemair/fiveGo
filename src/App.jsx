@@ -9,14 +9,14 @@ export default class App extends Component {
     const row = List(Array(10).fill(null))
     const data = List(Array(10).fill(row))
     this.state = {
-      initData: List.of(data),
-      data: List.of(data),
-      currentPlayer: 0,
-      currentRound: 0,
-      maxRound: 0,
-      lastPos: List.of(null),
-      hasWinner: false,
-      version: 0
+      initData: List.of(data), // 初始棋盘
+      data: List.of(data),     // 每回合棋盘状态
+      currentPlayer: 0,        // 当前玩家
+      currentRound: 0,         // 当前回合数
+      maxRound: 0,             // 最大回合数
+      lastPos: List.of(null),  // 每回合落子记录
+      hasWinner: false,        // 是否产生胜者 若为是则冻结棋盘
+      version: 0               // 游戏版本 0为DOM版 1为canvas版
     }
   }
 
@@ -26,6 +26,7 @@ export default class App extends Component {
     if (lastPos.size <= 1) {
       return
     }
+    // 胜利判定
     if (this.isWin(lastPos.get(currentRound), data.get(currentRound), currentPlayer) === true) {
       const player = currentPlayer === 0 ? '黑方' : '白方'
       this.setState({ hasWinner: true })
@@ -33,6 +34,10 @@ export default class App extends Component {
     }
   }
 
+  /**
+   * 落子
+   * @param pos: Array 落子位置
+   */
   play = pos => {
     const { data, currentRound, currentPlayer, hasWinner } = this.state
     const currentData = List(data.get(currentRound))
@@ -78,8 +83,17 @@ export default class App extends Component {
     }))
   }
 
+  /**
+   * 胜负判定
+   * @param pos: Array 最后落子位置
+   * @param currentData: List 当前棋盘布局
+   * @param currentPlayer: Number 当前玩家
+   * @returns {boolean} 是否产生胜者
+   */
   isWin = (pos, currentData, currentPlayer) => {
     if (pos === null) { return }
+    // 测试数组 从最后落子位置出发 分别从横向 纵向 斜向x2 四个方向查找最大同色棋子
+    // 其中任意方向同色棋子数达到4颗则判定为胜利✌️
     const testArray = [[[0, 1], [0, -1]], [[1, 0], [-1, 0]], [[1, 1], [-1, -1]], [[1, -1], [-1, 1]]]
     return testArray.some(i => {
       const max = i.reduce((m, n) => {

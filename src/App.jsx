@@ -123,14 +123,14 @@ export default class App extends Component {
   }
 
   render () {
-    const { data, currentRound, lastPos, currentPlayer, maxRound, version } = this.state
+    const { currentRound, lastPos, currentPlayer, maxRound, version } = this.state
     return (
       <div>
         <button onClick={this.changeVersion}>Switch to {version === 0 ? 'canvas' : 'DOM'} version</button>
         {
           version === 0
-            ? <Board data={data.get(currentRound)} play={this.play} lastPos={lastPos.get(currentRound - maxRound - 1)} />
-            : <Canvas pos={lastPos} currentRound={currentRound} play={this.play} />
+            ? <Board lastPos={lastPos} currentRound={currentRound} play={this.play} />
+            : <Canvas lastPos={lastPos} currentRound={currentRound} play={this.play} />
         }
         <p>Current player: {currentPlayer ? 'White' : 'Black'}</p>
         <p>Current round: {currentRound}</p>

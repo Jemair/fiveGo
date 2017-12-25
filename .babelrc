@@ -1,23 +1,15 @@
 {
     "presets": [
-        ["env", {"modules": false}],
+        ["env", {
+            "modules": false,
+            "targets": {
+                "browsers": ["last 2 versions", "> 1%"]
+            }
+        }],
         "stage-1",
         "react"
     ],
-    "plugins": [
-        "transform-runtime",
-        "transform-decorators-legacy"
-    ],
     "env": {
-        "production": {
-            "plugins": [[
-                "transform-react-remove-prop-types",
-                {
-                    "removeImport": true,
-                    "ignoreFilenames": ["node_modules"]
-                }
-            ]]
-        },
         "development": {
             "plugins": ["react-hot-loader/babel"]
         }

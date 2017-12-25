@@ -38,11 +38,11 @@ export default class Canvas extends Component {
   // 绘制棋子
   // 每次落子时清空棋盘，循环当前落子数组，index为偶数画黑子
   drawChessman = () => {
-    const { pos, currentRound } = this.props
+    const { lastPos, currentRound } = this.props
     const { ctx } = this.state
     if (ctx === null) { return }
     ctx.clearRect(0, 0, 620, 620)
-    for (const [index, value] of pos.entries()) {
+    for (const [index, value] of lastPos.entries()) {
       if (index > currentRound) { break }
       if (!Array.isArray(value)) { continue }
       const chess = [value[1] * 62 + 32, value[0] * 62 + 32]

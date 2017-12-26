@@ -107,7 +107,7 @@ export default class App extends Component {
           const test = currentData.get(tmp[0]).get(tmp[1])
           if (test !== currentPlayer) {
             break
-          }
+          } 
           count++
         }
         return m + count

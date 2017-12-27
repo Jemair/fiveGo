@@ -44,7 +44,8 @@ export default class App extends Component {
     if (currentData.get(pos[0]).get(pos[1]) !== null) { return }
     if (hasWinner) { return }
 
-    const newData = currentData.set(pos[0], currentData.get(pos[0]).set(pos[1], currentPlayer))
+    const newData = currentData.updateIn([pos[0], pos[1]], () => currentPlayer)
+    // const newData = currentData.set(pos[0], currentData.get(pos[0]).set(pos[1], currentPlayer))
     this.setState(prevState => {
       const { currentRound, data, lastPos } = prevState
       return ({
@@ -107,7 +108,7 @@ export default class App extends Component {
           const test = currentData.get(tmp[0]).get(tmp[1])
           if (test !== currentPlayer) {
             break
-          } 
+          }
           count++
         }
         return m + count
